@@ -1,6 +1,6 @@
 # Robotweax Homebrew Tap
 
-Install Robotweax SRT 0.2.5 on Apple Silicon macOS:
+Install Robotweax SRT on Apple Silicon macOS:
 
 ```sh
 brew install robotweax/tap/robotweax-srt
@@ -12,8 +12,8 @@ FFmpeg, GStreamer, VLC and OBS installations are not changed by installing it.
 Applications must link explicitly against `RobotweaxSRT::srt` or use
 `robotweax-srt.pc`; loading both providers into one process is not qualified.
 
-The formula builds from the immutable 0.2.5 release source commit
-[`492a7d6`](https://github.com/Robotweax/srt/commit/492a7d61390cbec86e44e177ec034f0f5d9a5cc3).
+This formula targets the immutable 0.2.6 source commit
+[`3050534`](https://github.com/Robotweax/srt/commit/30505346cc6bb935abf68cab806b69e73d428bc1).
 Its canonical source and qualification evidence live in
 [Robotweax/srt/packaging](https://github.com/Robotweax/srt/tree/main/packaging).
 Future formula changes are reviewed there first and then copied here. The tap
