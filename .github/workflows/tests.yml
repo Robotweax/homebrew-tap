@@ -43,7 +43,7 @@ jobs:
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
-      - run: brew test-bot --only-formulae
+      - run: brew test-bot --only-formulae --fail-fast
         if: github.event_name == 'pull_request'
 
       - name: Upload bottles as artifact
@@ -52,3 +52,4 @@ jobs:
         with:
           name: bottles_${{ matrix.os }}
           path: '*.bottle.*'
+          if-no-files-found: error
