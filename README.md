@@ -12,8 +12,8 @@ FFmpeg, GStreamer, VLC and OBS installations are not changed by installing it.
 Applications must link explicitly against `RobotweaxSRT::srt` or use
 `robotweax-srt.pc`; loading both providers into one process is not qualified.
 
-This formula targets the immutable 0.2.6 source commit
-[`7ecb60e`](https://github.com/Robotweax/srt/commit/7ecb60ea8b4faca01ed86237b0cc9dc906350f6e).
+This formula targets the immutable 0.2.7 source commit
+[`f254dd2`](https://github.com/Robotweax/srt/commit/f254dd2c0fe084f7965238756b1d3b96665d592b).
 Its canonical source and qualification evidence live in
 [Robotweax/srt/packaging](https://github.com/Robotweax/srt/tree/main/packaging).
 Future formula changes are reviewed there first and then copied here. The tap
