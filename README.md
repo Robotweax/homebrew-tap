@@ -12,14 +12,15 @@ FFmpeg, GStreamer, VLC and OBS installations are not changed by installing it.
 Applications must link explicitly against `RobotweaxSRT::srt` or use
 `robotweax-srt.pc`; loading both providers into one process is not qualified.
 
-This formula targets the immutable 0.2.8 source commit
-[`8126e16`](https://github.com/Robotweax/srt/commit/8126e166ecd3d33987b3748e799ef40e5192d068).
+This formula targets the immutable 0.2.9 product source commit
+[`8087365`](https://github.com/Robotweax/srt/commit/80873657469344becb9c35f5306d0050ec5a566d).
 Its canonical source and qualification evidence live in
-[Robotweax/srt/packaging](https://github.com/Robotweax/srt/tree/main/packaging).
+[Robotweax/srt/packaging](https://github.com/Robotweax/srt/blob/ce168060c241097b8af5b0cd9e8898027fb0ff09/packaging/qualification-0.2.9.md).
 Future formula changes are reviewed there first and then copied here. The tap
 holds distribution metadata and bottles; it does not fork the protocol source.
 
 The pull-request workflow builds and tests a macOS arm64 bottle. A maintainer
 reviews the formula, bottle checksums and successful tests before manually
 running `brew pr-pull` with the exact PR head SHA. Intel macOS and Linux Homebrew
-bottles are not currently qualified.
+bottles are not currently qualified. Bottle publication follows the SRT release
+acceptance and is a separate qualification from a source installation.
