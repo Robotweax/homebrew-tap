@@ -6,6 +6,11 @@ class RobotweaxSrt < Formula
   sha256 "6c6d19458838248a6c95153e8907334e6c16826c041d4e204f57b73a1750cb5c"
   license "MIT"
 
+  bottle do
+    root_url "https://github.com/Robotweax/homebrew-tap/releases/download/robotweax-srt-0.3.0"
+    sha256 cellar: :any, arm64_sequoia: "701662d3fb99e361f437ff27abd7380427b499dbb0e262cfe05f06906aa87bbb"
+  end
+
   depends_on "cmake" => :build
   depends_on "pkgconf" => :test
   depends_on "openssl@3"
