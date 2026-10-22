@@ -34,7 +34,7 @@ curl --fail --location --retry 3 \
   https://github.com/Robotweax/homebrew-tap/releases/download/robotweax-srt-0.2.8/robotweax-srt-0.2.8.arm64_sequoia.bottle.tar.gz \
   -o "$workdir/robotweax-srt--0.2.8.arm64_sequoia.bottle.tar.gz"
 printf '%s  %s\n' 1058b2cf39d26f19afff857dc5b1886f29ad7909459231c27af568274a875396 "$workdir/robotweax-srt--0.2.8.arm64_sequoia.bottle.tar.gz" | shasum -a 256 --check
-(cd "$workdir" && brew install ./robotweax-srt--0.2.8.arm64_sequoia.bottle.tar.gz)
+(cd "$workdir" && HOMEBREW_DEVELOPER=1 brew install ./robotweax-srt--0.2.8.arm64_sequoia.bottle.tar.gz)
 
 cat > "$workdir/consumer.c" <<'C'
 #include <robotweax_srt.h>
@@ -58,7 +58,8 @@ grep -F 'librobotweax-srt.0.2.dylib' "$workdir/old-linkage.txt"
 
 # Install the new local bottle through Homebrew's outdated-package upgrade path.
 cp "$workdir/new-formula.rb" "$recipe"
-brew install ./robotweax-srt--0.3.0.arm64_sequoia.bottle.tar.gz
+# Homebrew 7 permits local bottle paths in developer/test mode.
+HOMEBREW_DEVELOPER=1 brew install ./robotweax-srt--0.3.0.arm64_sequoia.bottle.tar.gz
 export PKG_CONFIG_PATH="$(brew --prefix robotweax-srt)/lib/pkgconfig:$(brew --prefix openssl@3)/lib/pkgconfig"
 test "$(pkg-config --modversion robotweax-srt)" = 0.3.0
 # shellcheck disable=SC2046
