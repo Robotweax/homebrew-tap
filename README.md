@@ -23,14 +23,21 @@ Version 0.3.0 uses shared-library ABI line 0.3; rebuild applications and
 dependencies linked against ABI line 0.2. The compatible SRT API version remains
 1.5.7. Existing C export names do not establish binary compatibility with 0.2.
 
-The SRT release was published on October 14, 2026. No 0.3.0 Homebrew bottle
-is qualified yet. This source-only formula intentionally has no bottle block;
-older 0.2.8 and 0.2.9 bottle checksums must not be reused.
+The SRT release was published on October 14, 2026. The 0.3.0 Homebrew bottle
+for Apple Silicon macOS 15 (`arm64_sequoia`) was published on October 22, 2026.
+[Native qualification](https://github.com/Robotweax/homebrew-tap/actions/runs/39789532751)
+passed bottle installation, audit/linkage, the 0.2.8 upgrade with consumer rebuild,
+ABI 0.3 and 84 exports, C/C++ consumers, default-prefix relocation, coexistence
+and removal. The downloaded public bottle is byte-identical to the accepted
+native artifact; its SHA-256 is
+`701662d3fb99e361f437ff27abd7380427b499dbb0e262cfe05f06906aa87bbb`.
+[Publication and provenance](https://github.com/Robotweax/homebrew-tap/actions/runs/39792270813)
+used the exact reviewed PR head. Older bottle checksums must not be reused.
 
 The pull-request workflow builds and tests a macOS arm64 bottle. A maintainer
 reviews the formula, bottle checksums and successful tests before manually
 running `brew pr-pull` with the exact PR head SHA. Intel macOS and Linux Homebrew
-bottles are not currently qualified. Publish a 0.3.0 bottle only after native
-qualification of the exact 0.3.0 PR head and downloaded artifact/hash review.
-The open 0.2.9 PR #8 is superseded by this update; its qualification evidence
-remains historical and does not qualify 0.3.0.
+bottles, additional macOS tags and arbitrary installation prefixes are not
+currently qualified. PR #8 for 0.2.9 was closed as superseded by #10; its evidence
+remains historical. Future bottle updates require their own exact-head native
+qualification and downloaded artifact/hash review.
