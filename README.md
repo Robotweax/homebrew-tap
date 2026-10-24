@@ -24,11 +24,23 @@ Version 0.3.1 uses shared-library ABI line 0.3 and preserves the 84 published
 0.3.0 C exports, adding direct group adoption as the 85th export. The compatible
 SRT API version remains 1.5.7. Applications moving from ABI line 0.2 must rebuild.
 
-The SRT 0.3.1 release was published on October 24, 2026. Native bottle acceptance
-checks the published 0.3.0 upgrade, an existing C consumer without rebuilding,
+The SRT 0.3.1 release and its Homebrew bottle for Apple Silicon macOS 15
+(`arm64_sequoia`) were published on October 24, 2026.
+[Native qualification](https://github.com/Robotweax/homebrew-tap/actions/runs/40092408908)
+passed the published 0.3.0 upgrade, an existing C consumer without rebuilding,
 85 exports, C/C++ consumers, default-prefix relocation, coexistence and removal.
-The bottle also includes all 90 finished public Markdown documents, checked
-byte for byte against the frozen product.
+All 90 finished public Markdown documents matched the frozen product byte for
+byte after installation.
+
+[Publication and provenance](https://github.com/Robotweax/homebrew-tap/actions/runs/40092976316)
+used the exact reviewed PR head
+[`bec3e95`](https://github.com/Robotweax/homebrew-tap/commit/bec3e9505c0fb1d61bdc87d356c2ef00f57d9c8c).
+The independently downloaded public bottle is byte-identical to the accepted
+native artifact; its SHA-256 is
+`cda530ad9bf5b936b310f5917ee181d855825bed3981468234910d37c0d5b527`.
+Its signed provenance was verified against this tap's publication workflow and
+run. The published formula contains that same bottle checksum and preserves
+the reviewed canonical source recipe.
 
 ## Previous 0.3.0 bottle publication
 
