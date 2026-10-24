@@ -12,19 +12,40 @@ FFmpeg, GStreamer, VLC and OBS installations are not changed by installing it.
 Applications must link explicitly against `RobotweaxSRT::srt` or use
 `robotweax-srt.pc`; loading both providers into one process is not qualified.
 
-This formula targets the immutable 0.3.0 product source commit
-[`607d003`](https://github.com/Robotweax/srt/commit/607d0034b7977f1e5003c98c42cc934bbdf9d431).
-Its canonical source and qualification evidence live in
-[Robotweax/srt/packaging](https://github.com/Robotweax/srt/blob/0b4aa7f3daa1591f59a17432c7041102960bcf7b/packaging/qualification-0.3.0.md).
-Future formula changes are reviewed there first and then copied here. The tap
-holds distribution metadata and bottles; it does not fork the protocol source.
+This formula targets the immutable 0.3.1 product source commit
+[`adbf8a7`](https://github.com/Robotweax/srt/commit/adbf8a7a161f59aa56a2f15482173dd635cc3a09),
+the same product used by [published SRT 0.3.1](https://github.com/Robotweax/srt/releases/tag/v0.3.1).
+Its canonical recipe and source identity live in
+[Robotweax/srt/packaging](https://github.com/Robotweax/srt/blob/v0.3.1/packaging/qualification-0.3.1.md).
+Formula changes are reviewed there first and then copied here. The tap holds
+distribution metadata and bottles; it does not fork the protocol source.
 
-Version 0.3.0 uses shared-library ABI line 0.3; rebuild applications and
-dependencies linked against ABI line 0.2. The compatible SRT API version remains
-1.5.7. Existing C export names do not establish binary compatibility with 0.2.
+Version 0.3.1 uses shared-library ABI line 0.3 and preserves the 84 published
+0.3.0 C exports, adding direct group adoption as the 85th export. The compatible
+SRT API version remains 1.5.7. Applications moving from ABI line 0.2 must rebuild.
 
-The SRT release was published on October 14, 2026. The 0.3.0 Homebrew bottle
-for Apple Silicon macOS 15 (`arm64_sequoia`) was published on October 22, 2026.
+The SRT 0.3.1 release and its Homebrew bottle for Apple Silicon macOS 15
+(`arm64_sequoia`) were published on October 24, 2026.
+[Native qualification](https://github.com/Robotweax/homebrew-tap/actions/runs/40092408908)
+passed the published 0.3.0 upgrade, an existing C consumer without rebuilding,
+85 exports, C/C++ consumers, default-prefix relocation, coexistence and removal.
+All 90 finished public Markdown documents matched the frozen product byte for
+byte after installation.
+
+[Publication and provenance](https://github.com/Robotweax/homebrew-tap/actions/runs/40092976316)
+used the exact reviewed PR head
+[`bec3e95`](https://github.com/Robotweax/homebrew-tap/commit/bec3e9505c0fb1d61bdc87d356c2ef00f57d9c8c).
+The independently downloaded public bottle is byte-identical to the accepted
+native artifact; its SHA-256 is
+`cda530ad9bf5b936b310f5917ee181d855825bed3981468234910d37c0d5b527`.
+Its signed provenance was verified against this tap's publication workflow and
+run. The published formula contains that same bottle checksum and preserves
+the reviewed canonical source recipe.
+
+## Previous 0.3.0 bottle publication
+
+The 0.3.0 Homebrew bottle for Apple Silicon macOS 15 (`arm64_sequoia`) was
+published on October 22, 2026.
 [Native qualification](https://github.com/Robotweax/homebrew-tap/actions/runs/39789532751)
 passed bottle installation, audit/linkage, the 0.2.8 upgrade with consumer rebuild,
 ABI 0.3 and 84 exports, C/C++ consumers, default-prefix relocation, coexistence
@@ -33,6 +54,8 @@ native artifact; its SHA-256 is
 `701662d3fb99e361f437ff27abd7380427b499dbb0e262cfe05f06906aa87bbb`.
 [Publication and provenance](https://github.com/Robotweax/homebrew-tap/actions/runs/39792270813)
 used the exact reviewed PR head. Older bottle checksums must not be reused.
+
+## Bottle publication
 
 The pull-request workflow builds and tests a macOS arm64 bottle. A maintainer
 reviews the formula, bottle checksums and successful tests before manually

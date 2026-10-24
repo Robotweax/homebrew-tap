@@ -46,9 +46,9 @@ jobs:
       - run: brew test-bot --only-formulae --fail-fast
         if: github.event_name == 'pull_request'
 
-      - name: Qualify 0.3.0 bottle consumers and upgrade
-        if: github.event_name == 'pull_request' && hashFiles('robotweax-srt--0.3.0.arm64_sequoia.bottle.tar.gz') != ''
-        run: bash .github/scripts/qualify-0.3.0-bottle.sh
+      - name: Qualify 0.3.1 bottle consumers and upgrade
+        if: github.event_name == 'pull_request' && hashFiles('robotweax-srt--0.3.1.arm64_sequoia.bottle.tar.gz') != ''
+        run: bash .github/scripts/qualify-0.3.1-bottle.sh
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
