@@ -12,17 +12,25 @@ FFmpeg, GStreamer, VLC and OBS installations are not changed by installing it.
 Applications must link explicitly against `RobotweaxSRT::srt` or use
 `robotweax-srt.pc`; loading both providers into one process is not qualified.
 
-This formula targets the immutable 0.3.1 product source commit
-[`adbf8a7`](https://github.com/Robotweax/srt/commit/adbf8a7a161f59aa56a2f15482173dd635cc3a09),
-the same product used by [published SRT 0.3.1](https://github.com/Robotweax/srt/releases/tag/v0.3.1).
+This formula targets the immutable 0.3.3 product source commit
+[`f5948a4`](https://github.com/Robotweax/srt/commit/f5948a4b059aa1c8e7aa5e932053f92ff37eb6ff),
+the same product used by [published SRT 0.3.3](https://github.com/Robotweax/srt/releases/tag/v0.3.3).
 Its canonical recipe and source identity live in
-[Robotweax/srt/packaging](https://github.com/Robotweax/srt/blob/v0.3.1/packaging/qualification-0.3.1.md).
+[Robotweax/srt/packaging](https://github.com/Robotweax/srt/blob/v0.3.3/packaging/qualification-0.3.3.md).
 Formula changes are reviewed there first and then copied here. The tap holds
 distribution metadata and bottles; it does not fork the protocol source.
 
-Version 0.3.1 uses shared-library ABI line 0.3 and preserves the 84 published
-0.3.0 C exports, adding direct group adoption as the 85th export. The compatible
-SRT API version remains 1.5.7. Applications moving from ABI line 0.2 must rebuild.
+Version 0.3.3 uses shared-library ABI line 0.3 and preserves all 85 C exports
+from 0.3.1. The compatible SRT API version remains 1.5.7. Applications moving
+from ABI line 0.2 must rebuild.
+
+The release-specific macOS qualification checks the published 0.3.1 upgrade,
+an existing C consumer without rebuilding, 85 exports, C/C++ consumers,
+default-prefix relocation, coexistence and removal. It also compares all 100
+installed public Markdown documents with the frozen source. Bottle publication
+and provenance follow the workflow described below.
+
+## Previous 0.3.1 bottle publication
 
 The SRT 0.3.1 release and its Homebrew bottle for Apple Silicon macOS 15
 (`arm64_sequoia`) were published on October 24, 2026.
