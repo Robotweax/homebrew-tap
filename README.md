@@ -28,9 +28,20 @@ must rebuild.
 The release-specific macOS qualification checks the published 0.3.3 upgrade,
 an existing C consumer without rebuilding, 86 exports, C/C++ consumers,
 default-prefix relocation, coexistence and removal. It also compares all 106
-installed public Markdown documents with the frozen source. Bottle publication
-and provenance follow the workflow described below. Until a 0.3.4 bottle is
-published, the formula installs from source.
+installed public Markdown documents with the frozen source.
+
+The 0.3.4 bottle for Apple Silicon macOS 15 (`arm64_sequoia`) was published on
+November 20, 2026.
+[Native qualification](https://github.com/Robotweax/homebrew-tap/actions/runs/44768944062)
+passed on the exact reviewed PR head
+[`c8ee2e3`](https://github.com/Robotweax/homebrew-tap/commit/c8ee2e3205e796056ed90cbab1b0d307d553dfc9).
+[Publication and provenance](https://github.com/Robotweax/homebrew-tap/actions/runs/44772229425)
+used that head. The independently downloaded public bottle is byte-identical
+to the accepted native artifact; its SHA-256 is
+`585b1aaa343416eaff3aec2bb7d1aac06d0280e811eaa6be00936ce76b743ce4`.
+Its signed provenance was verified against this tap's publication workflow and
+run. The published formula contains that same bottle checksum and preserves
+the reviewed canonical source recipe.
 
 ## Previous 0.3.3 bottle publication
 
