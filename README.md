@@ -112,10 +112,22 @@ used the exact reviewed PR head. Older bottle checksums must not be reused.
 
 ## Bottle publication
 
-The pull-request workflow builds and tests a macOS arm64 bottle. A maintainer
-reviews the formula, bottle checksums and successful tests before manually
-running `brew pr-pull` with the exact PR head SHA. Intel macOS and Linux Homebrew
-bottles, additional macOS tags and arbitrary installation prefixes are not
-currently qualified. PR #8 for 0.2.9 was closed as superseded by #10; its evidence
-remains historical. Future bottle updates require their own exact-head native
-qualification and downloaded artifact/hash review.
+The pull-request workflow builds and tests the Apple Silicon macOS 15
+(`arm64_sequoia`) bottle. After reviewing that qualification, dispatch
+`Publish Homebrew bottle` on `main` with the release PR number, its full
+qualified head SHA, and the successful native qualification run ID.
+
+The workflow verifies the bottle and its embedded formula, creates signed
+provenance and publishes the asset. It then opens a separate metadata PR
+based on the qualified release PR. Review and merge the metadata PR using
+the tap's normal rules. The workflow summary shows the PR and its merge state.
+Reuse the same inputs for retries. The existing metadata branch records the
+qualification run and digest, and the workflow verifies and reuses the
+published asset and attestation when they already exist.
+
+Configure the repository Actions secret `BOTTLE_PUBLICATION_PR_TOKEN` with
+a fine-grained token scoped to this tap and **Pull requests: write**. It is
+used only to open the metadata PR. GitHub's workflow token handles release
+assets, attestations and the metadata branch.
+
+Other bottle platforms require their own native qualification.
