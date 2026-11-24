@@ -1,14 +1,14 @@
 class RobotweaxSrt < Formula
   desc "Robotweax Secure Reliable Transport"
   homepage "https://github.com/Robotweax/srt"
-  url "https://github.com/Robotweax/srt/archive/6009c6430b46e8691181bbd8690bf36c3ef0d661.tar.gz"
-  version "0.3.4"
-  sha256 "66ab41f65523fce7cea66c5ac54b44f3f8d7b5a87586755b00ee91a70d870116"
+  url "https://github.com/Robotweax/srt/archive/3415d7c155d393755c8e49f88db4e68789fdf1b6.tar.gz"
+  version "0.3.5"
+  sha256 "d0874116bd14f27eaf5f9a3fba523e3f32d6f579896009b540de1c08e95a9336"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/Robotweax/homebrew-tap/releases/download/robotweax-srt-0.3.4"
-    sha256 cellar: :any, arm64_sequoia: "585b1aaa343416eaff3aec2bb7d1aac06d0280e811eaa6be00936ce76b743ce4"
+    root_url "https://github.com/Robotweax/homebrew-tap/releases/download/robotweax-srt-0.3.5"
+    sha256 cellar: :any, arm64_sequoia: "33824f8702ec667745a5c4322f99dc71447ccc4da2ebfe15bce6a3e27a194c7f"
   end
 
   depends_on "cmake" => :build
