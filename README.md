@@ -22,11 +22,25 @@ Version 0.3.5 keeps shared-library ABI line 0.3, all 86 public C exports
 and the compatible SRT API version 1.5.7. Applications moving from ABI line
 0.2 must rebuild.
 
-The native macOS 15 qualification installs the published 0.3.4 bottle,
-builds a C consumer against it and runs the same executable after upgrading
-to 0.3.5. It also checks ABI exports, installed C/C++ consumers, default-prefix
-relocation, coexistence and removal, and compares all 109 installed public
-Markdown documents with the frozen source.
+## 0.3.5 bottle publication
+
+The [Apple Silicon macOS 15 bottle](https://github.com/Robotweax/homebrew-tap/releases/tag/robotweax-srt-0.3.5)
+(`arm64_sequoia`) was published on 24 November 2026.
+[Native qualification](https://github.com/Robotweax/homebrew-tap/actions/runs/45340361072)
+passed on its first attempt at head
+[`d7a8127`](https://github.com/Robotweax/homebrew-tap/commit/d7a81277139736aeca2c2bbb85da3d795912b656).
+It upgraded from the checksum-verified published 0.3.4 bottle and ran the
+same C executable against 0.3.5 without rebuilding it. All 86 exports and
+109 installed Markdown files matched. Installed C/C++ consumers, default-prefix
+relocation, coexistence with Haivision SRT and removal also passed.
+
+The public download matches the [qualified bottle artifact](https://github.com/Robotweax/homebrew-tap/actions/runs/45340361072/artifacts/14895972609)
+with SHA-256 `33824f8702ec667745a5c4322f99dc71447ccc4da2ebfe15bce6a3e27a194c7f`.
+Its signed provenance verified against the tap's
+[`brew pr-pull` publication run](https://github.com/Robotweax/homebrew-tap/actions/runs/45341293566/attempts/1).
+The formula with the workflow-generated bottle URL and checksum landed in
+[PR 16](https://github.com/Robotweax/homebrew-tap/pull/16) at merge commit
+[`0060f84`](https://github.com/Robotweax/homebrew-tap/commit/0060f8445ba2e0ee3ff4a613bc06cef74a16d84f).
 
 ## Previous 0.3.4 bottle publication
 
