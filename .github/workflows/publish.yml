@@ -1,65 +1,61 @@
-# brew tap-new uses this file to generate a bottle publish workflow for the new tap
-name: brew pr-pull
+name: Publish Homebrew bottle
 
 on:
   workflow_dispatch:
     inputs:
       pull_request:
-        description: Pull request number
+        description: Pull request that qualified the bottle
         required: true
       head_sha:
-        description: Expected pull request head commit SHA (optional)
+        description: Full commit SHA of the qualified pull request head
+        required: true
+      qualification_run:
+        description: Successful native brew test-bot run ID for that head
+        required: true
 
 permissions: {}
 
-defaults:
-  run:
-    shell: bash -xeuo pipefail {0}
+concurrency:
+  group: bottle-publication
+  cancel-in-progress: false
 
 jobs:
-  pr-pull:
+  publish:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       actions: read
       attestations: write
-      checks: read
       contents: write
       id-token: write
-      issues: read
-      pull-requests: write
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_PR: ${{ inputs.pull_request }}
+      QUALIFIED_HEAD: ${{ inputs.head_sha }}
+      QUALIFICATION_RUN: ${{ inputs.qualification_run }}
     steps:
-      - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@4790763c0a3ba4036f72634dc079c4a7dfcd4878 # 2026.10.19.1
+      - name: Check out publication workflow source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: Set up git
-        id: git_setup
-        uses: Homebrew/actions/git-user-config@4790763c0a3ba4036f72634dc079c4a7dfcd4878 # 2026.10.19.1
-
-      - name: Pull bottles
-        id: pull_bottles
+      - name: Verify bottle and prepare metadata branch
+        id: bottle
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git_setup.outputs.name }}
-          HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git_setup.outputs.email }}
-          HEAD_SHA: ${{ inputs.head_sha }}
-          PULL_REQUEST: ${{ inputs.pull_request }}
-        run: |
-          if [[ -n "$HEAD_SHA" ]]
-          then
-            brew pr-pull --debug --retain-bottle-dir --tap="$GITHUB_REPOSITORY" --head-sha="$HEAD_SHA" \
-              "$PULL_REQUEST"
-          else
-            brew pr-pull --debug --retain-bottle-dir --tap="$GITHUB_REPOSITORY" "$PULL_REQUEST"
-          fi
+          PR_TOKEN_CONFIGURED: ${{ secrets.BOTTLE_PUBLICATION_PR_TOKEN != '' }}
+        run: python3 .github/scripts/publish-bottle.py prepare
 
       - name: Generate build provenance
+        if: steps.bottle.outputs.attested != 'true'
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
-          subject-path: "${{ steps.pull_bottles.outputs.bottle_path }}/*.tar.gz"
+          subject-path: ${{ steps.bottle.outputs.path }}
 
-      - name: Push commits
-        uses: Homebrew/actions/git-try-push@4790763c0a3ba4036f72634dc079c4a7dfcd4878 # 2026.10.19.1
-        with:
-          branch: main
+      - name: Publish the verified bottle
+        run: python3 .github/scripts/publish-bottle.py publish
+
+      - name: Open or reuse the metadata pull request
+        env:
+          BOTTLE_PUBLICATION_PR_TOKEN: ${{ secrets.BOTTLE_PUBLICATION_PR_TOKEN }}
+        run: python3 .github/scripts/publish-bottle.py open-pr
