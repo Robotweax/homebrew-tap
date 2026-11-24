@@ -12,23 +12,23 @@ FFmpeg, GStreamer, VLC and OBS installations are not changed by installing it.
 Applications must link explicitly against `RobotweaxSRT::srt` or use
 `robotweax-srt.pc`; loading both providers into one process is not qualified.
 
-This formula targets the immutable 0.3.4 product source commit
-[`6009c64`](https://github.com/Robotweax/srt/commit/6009c6430b46e8691181bbd8690bf36c3ef0d661),
-the same product used by [published SRT 0.3.4](https://github.com/Robotweax/srt/releases/tag/v0.3.4).
-Its canonical recipe and source identity live in
-[Robotweax/srt/packaging](https://github.com/Robotweax/srt/blob/v0.3.4/packaging/qualification-0.3.4.md).
-Formula changes are reviewed there first and then copied here. The tap holds
-distribution metadata and bottles; it does not fork the protocol source.
+This formula targets the immutable 0.3.5 product source commit
+[`3415d7c`](https://github.com/Robotweax/srt/commit/3415d7c155d393755c8e49f88db4e68789fdf1b6),
+the same product used by [published SRT 0.3.5](https://github.com/Robotweax/srt/releases/tag/v0.3.5).
+See the [canonical formula](https://github.com/Robotweax/srt/blob/v0.3.5/packaging/homebrew/robotweax-srt.rb)
+and [source manifest](https://github.com/Robotweax/srt/blob/v0.3.5/packaging/source-0.3.5.json).
 
-Version 0.3.4 uses shared-library ABI line 0.3 and preserves all 85 C exports
-from 0.3.3, adding `robotweax_srt_epoll_wake` as the 86th export. The
-compatible SRT API version remains 1.5.7. Applications moving from ABI line 0.2
-must rebuild.
+Version 0.3.5 keeps shared-library ABI line 0.3, all 86 public C exports
+and the compatible SRT API version 1.5.7. Applications moving from ABI line
+0.2 must rebuild.
 
-The release-specific macOS qualification checks the published 0.3.3 upgrade,
-an existing C consumer without rebuilding, 86 exports, C/C++ consumers,
-default-prefix relocation, coexistence and removal. It also compares all 106
-installed public Markdown documents with the frozen source.
+The native macOS 15 qualification installs the published 0.3.4 bottle,
+builds a C consumer against it and runs the same executable after upgrading
+to 0.3.5. It also checks ABI exports, installed C/C++ consumers, default-prefix
+relocation, coexistence and removal, and compares all 109 installed public
+Markdown documents with the frozen source.
+
+## Previous 0.3.4 bottle publication
 
 The 0.3.4 bottle for Apple Silicon macOS 15 (`arm64_sequoia`) was published on
 November 20, 2026.
