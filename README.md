@@ -112,22 +112,39 @@ used the exact reviewed PR head. Older bottle checksums must not be reused.
 
 ## Bottle publication
 
-The pull-request workflow builds and tests the Apple Silicon macOS 15
-(`arm64_sequoia`) bottle. After reviewing that qualification, dispatch
-`Publish Homebrew bottle` on `main` with the release PR number, its full
-qualified head SHA, and the successful native qualification run ID.
+The release PR builds and tests the Apple Silicon macOS 15
+(`arm64_sequoia`) bottle. Other bottle platforms require their own native
+qualification.
 
-The workflow verifies the bottle and its embedded formula, creates signed
-provenance and publishes the asset. It then opens a separate metadata PR
-based on the qualified release PR. Review and merge the metadata PR using
-the tap's normal rules. The workflow summary shows the PR and its merge state.
-Reuse the same inputs for retries. The existing metadata branch records the
-qualification run and digest, and the workflow verifies and reuses the
-published asset and attestation when they already exist.
+### First live publication checklist
+
+- [ ] Update the version-specific upgrade test for the next release. It should
+  install the currently published bottle, build a C consumer, then upgrade
+  and run that same executable. Keep the release PR ready for review and
+  confirm its `macos-15` job passed
+  `Qualify X.Y.Z bottle consumers and upgrade` and retained the
+  `bottles_macos-15` artifact.
+- [ ] After publication approval, dispatch
+  [Publish Homebrew bottle](https://github.com/Robotweax/homebrew-tap/actions/workflows/publish.yml)
+  on `main` with the three inputs below.
+
+  | Input | Value |
+  | --- | --- |
+  | `pull_request` | Tap release PR number |
+  | `head_sha` | Full 40-character SHA of the qualified PR head |
+  | `qualification_run` | Successful native **brew test-bot** run ID for that exact head |
+
+- [ ] Download the public bottle and match its SHA-256 to the qualified
+  artifact. Verify the signed attestation covers that digest and identifies
+  the publication run.
+- [ ] Check that the workflow summary links one metadata PR targeting
+  `main`. Review the bottle URL and `arm64_sequoia` checksum before merging
+  through the tap's normal review rules.
+- [ ] If a retry is needed, reuse the same three inputs. Once upload and
+  attestation have succeeded, check that the retry verifies the existing
+  asset and attestation and reuses the metadata PR if it already exists.
 
 Configure the repository Actions secret `BOTTLE_PUBLICATION_PR_TOKEN` with
 a fine-grained token scoped to this tap and **Pull requests: write**. It is
 used only to open the metadata PR. GitHub's workflow token handles release
 assets, attestations and the metadata branch.
-
-Other bottle platforms require their own native qualification.
